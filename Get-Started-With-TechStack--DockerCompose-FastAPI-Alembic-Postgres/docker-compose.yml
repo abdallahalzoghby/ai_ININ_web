@@ -1,0 +1,66 @@
+<<<<<<< HEAD
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: youruser
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: yourdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+=======
+version: '3.8'
+
+services:
+>>>>>>> 965fb520131e29bb81daf4ecdef43a9464111929
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+<<<<<<< HEAD
+    environment:
+      DATABASE_URL: postgresql://youruser:yourpassword@db:5432/yourdb
+      PYTHONPATH: /app # This makes /app as root python imports
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
+=======
+    container_name: abdallah_alzoghby
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    volumes:
+      - .:/app
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+>>>>>>> 965fb520131e29bb81daf4ecdef43a9464111929
